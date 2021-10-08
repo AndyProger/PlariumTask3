@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Text;
-using System.Linq;
 
 
 namespace PlariumTask3
@@ -65,9 +64,8 @@ namespace PlariumTask3
             {
                 for(var j = i + 1; j < words.Length; j++)
                 {
-                    
-
-
+                    stem = FindStemp(words[i], words[j]);
+                    Console.WriteLine(words[i] + " and " + words[j] + " stemm is " + stem);
                 }
             }
         }
@@ -81,18 +79,20 @@ namespace PlariumTask3
             if (fWord.Contains(sWord)) return sWord;
             if (sWord.Contains(fWord)) return fWord;
 
-            string smallWord = fWord.Length < sWord.Length ? fWord : sWord;
+            string smallWord = fWord.Length <= sWord.Length ? fWord : sWord;
             string bigWord = fWord.Length > sWord.Length ? fWord : sWord;
 
-            string stemm = null;
+            string stemm = string.Empty;
+            string subString = string.Empty;
             int lPointer = 0, rPointer = 2;
 
             while(rPointer != smallWord.Length)
             {
-                if (bigWord.Contains(smallWord.Substring(smallWord.IndexOf(smallWord[lPointer]),
-                                                         smallWord.IndexOf(smallWord[rPointer]))))
-                    stemm = smallWord.Substring(smallWord.IndexOf(smallWord[lPointer]),
-                                                         smallWord.IndexOf(smallWord[rPointer]));
+                subString = smallWord.Substring(lPointer, rPointer - lPointer + 1);
+                if (bigWord.Contains(subString) && subString.Length > stemm.Length)
+                {
+                    stemm = smallWord.Substring(lPointer, rPointer - lPointer + 1);
+                }
 
                 rPointer++;
 
@@ -125,7 +125,7 @@ namespace PlariumTask3
             //Console.Write("String without verbs: ");
             //RemoveVerbsFromString(text);
 
-            
+            Stemmer("hello wqeellrt fffeellrt poop");
         }
     }
 }
