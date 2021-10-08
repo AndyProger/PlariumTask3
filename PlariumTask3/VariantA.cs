@@ -58,14 +58,26 @@ namespace PlariumTask3
         public static void Stemmer(string str)
         {
             string[] words = str.ToLower().Replace(".", string.Empty).Replace(",", string.Empty).Split(" ");
-            string prefix, stem, end;
+            string prefixFirst, prefixSecond, stem, endFirst, endSecond;
 
             for (var i = 0; i < words.Length; i++)
             {
                 for(var j = i + 1; j < words.Length; j++)
                 {
                     stem = FindStemp(words[i], words[j]);
-                    Console.WriteLine(words[i] + " and " + words[j] + " stemm is " + stem);
+
+                    if (stem.Length > 2)
+                    {
+                        prefixFirst = words[i].Substring(0, words[i].IndexOf(stem));
+                        prefixSecond = words[j].Substring(0, words[j].IndexOf(stem));
+                        endFirst = words[i].Substring(words[i].IndexOf(stem) + stem.Length);
+                        endSecond = words[j].Substring(words[j].IndexOf(stem) + stem.Length);
+                        Console.WriteLine(new string('*', 20));
+                        Console.WriteLine(words[i] + " and " + words[j]);
+                        Console.WriteLine(prefixFirst + " " + stem + " " + endFirst);
+                        Console.WriteLine(prefixSecond + " " + stem + " " + endSecond);
+                        Console.WriteLine(new string('*', 20));
+                    }
                 }
             }
         }
@@ -125,7 +137,7 @@ namespace PlariumTask3
             //Console.Write("String without verbs: ");
             //RemoveVerbsFromString(text);
 
-            Stemmer("hello wqeellrt fffeellrt poop");
+            Stemmer("hello wqeellrt fffeellrtqqq poop");
         }
     }
 }
