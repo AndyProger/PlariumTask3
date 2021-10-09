@@ -2,7 +2,7 @@
 
 namespace VariantB
 {
-    class Program
+    class Testing
     {
         static void Main(string[] args)
         {
