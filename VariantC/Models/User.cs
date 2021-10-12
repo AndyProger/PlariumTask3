@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using LetterSpace;
-using Server;
+using CollectionOfUsers;
 
 namespace UserSpace
 {
@@ -27,10 +27,13 @@ namespace UserSpace
 
         private User(string name, string surname)
         {
-            if(IsNameValid(name) && IsNameValid(surname))
+            name = Regex.Replace(name.Trim(), "\\s+", " ");
+            surname = Regex.Replace(surname.Trim(), "\\s+", " ");
+
+            if (IsNameValid(name) && IsNameValid(surname))
             {
-                Name = Regex.Replace(name.Trim(), "\\s+", " ");
-                Surname = Regex.Replace(surname.Trim(), "\\s+", " ");
+                Name = name;
+                Surname = surname;
             }
             else
             {
@@ -43,7 +46,7 @@ namespace UserSpace
             if(birthdate > new DateTime(1900,1,1) && birthdate < DateTime.Now)
             {
                 Birthdate = birthdate;
-                UsersCollction.AddUser(this);
+                UsersCollection.AddUser(this);
             }
             else
             {
@@ -58,24 +61,28 @@ namespace UserSpace
             Birthdate = other.Birthdate;
         }
 
+        // Отправить письмо получателю
         public void SendLetter(User reciper, Letter letter)
         {
             Letter copyLetter = new Letter(letter);
+
             copyLetter.Sender = this;
             copyLetter.Recipient = reciper;
             copyLetter.SendingDate = DateTime.Now;
+
             reciper._letters.Add(copyLetter);
             LettersSent++;
         }
 
+        // Отправить письмо заданного человека с заданной темой всем адресатам.
         public void SendToAll(Letter letter)
         {
-            List<User> users = UsersCollction.Users;
+            List<User> users = UsersCollection.Users;
             users.Remove(this);
 
             foreach(User user in users)
             {
-                this.SendLetter(user, letter);
+                SendLetter(user, letter);
             }
         }
 
@@ -84,6 +91,14 @@ namespace UserSpace
             return $"ID: {ID} \nName: {Name} \nSurname: {Surname} \nBirthdate: {Birthdate} \n";
         }
 
-        private bool IsNameValid(string name) => !string.IsNullOrEmpty(name) && Regex.IsMatch(name, @"^[a-zA-Z ]+$");
+        public Letter this[int index]
+        {
+            get
+            {
+                return _letters[index];
+            }
+        }
+
+        private bool IsNameValid(string name) => !string.IsNullOrEmpty(name) && Regex.IsMatch(name, @"^[a-zA-Z]+$");
     }
 }

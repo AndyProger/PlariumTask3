@@ -42,7 +42,7 @@ namespace VariantB
             Console.WriteLine(new string('-', 25));
 
             //----------------------------------------------------
-            tmp = collection.FindObtuseLargerSpecifiedArea(-100);
+            tmp = collection.FindObtuseLargerSpecifiedArea(15);
 
             foreach (Triangle triangle in tmp)
                 Console.WriteLine(triangle);

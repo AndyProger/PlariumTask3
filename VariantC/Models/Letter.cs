@@ -3,13 +3,13 @@ using UserSpace;
 
 namespace LetterSpace
 {
-    record Letter
+    class Letter
     {
         public User Sender { private get; set; }
         public User Recipient { private get; set; }
+        public DateTime SendingDate { get; set; }
         public string Topic { get; private set; } = string.Empty;
         public string Text { get; private set; } = string.Empty;
-        public DateTime SendingDate { get; set; }
 
         public Letter(string topic, string text)
         {

@@ -5,9 +5,9 @@ using System.Text;
 using LetterSpace;
 using UserSpace;
 
-namespace Server
+namespace CollectionOfUsers
 {
-    static class UsersCollction
+    static class UsersCollection
     {
         public static List<User> _users = new List<User>();
         public static List<User> Users
@@ -63,6 +63,7 @@ namespace Server
             return info.ToString();
         }
 
+        // информация о пользователях, которые получили хотя бы одно сообщение с заданной темой
         public static string GetUsersWithSuchTopic(string topic)
         {
             StringBuilder info = new StringBuilder();
@@ -83,27 +84,37 @@ namespace Server
             return info.ToString();
         }
 
+        // информация о пользователях, которые не получали сообщения с заданной темой.
         public static string GetUsersWithoutSuchTopic(string topic)
         {
             StringBuilder info = new StringBuilder();
+            bool hasSuchTopic;
 
             foreach (User user in _users)
             {
                 List<Letter> letters = user.Letters;
+                hasSuchTopic = false;
 
-                if(!letters.Any())
+                if (!letters.Any())
+                {
                     info.Append(user + "\n");
+                    break;
+                }
 
                 foreach (Letter letter in letters)
                 {
-                    if (letter.Topic != topic)
+                    if (letter.Topic == topic)
                     {
-                        info.Append(user + "\n");
+                        hasSuchTopic = true;
                     }
                 }
+
+                if(!hasSuchTopic)
+                    info.Append(user + "\n");
             }
 
             return info.ToString();
         }
+
     }
 }
