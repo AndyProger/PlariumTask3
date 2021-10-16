@@ -16,8 +16,6 @@ namespace PlariumTask3
             Console.Write("Enter word to search: ");
             string word = Console.ReadLine();
 
-            Console.WriteLine("Waiting for pressing any key... ");
-            Console.ReadKey();
             Console.WriteLine();
 
             VariantA.SelectWordsInString(text, word);

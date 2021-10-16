@@ -59,6 +59,7 @@ namespace UserSpace
             Name = other.Name;
             Surname = other.Surname;
             Birthdate = other.Birthdate;
+            UsersCollection.AddUser(this);
         }
 
         // Отправить письмо получателю

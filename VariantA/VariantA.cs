@@ -13,13 +13,14 @@ namespace PlariumTask3
          */
         public static void SelectWordsInString(string text, string word)
         {
-            string[] textArray = text.ToLower().Replace(".", string.Empty).Replace(",", string.Empty).Split(" ");
+            string[] textArray = text.ToLower().Split(" ");
 
             foreach (string str in textArray)
             {
                 if (string.Compare(str, word, CultureInfo.CurrentCulture,
                     CompareOptions.IgnoreCase | CompareOptions.IgnoreSymbols) == 0)
                 {
+                    Console.ReadKey();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write(str + " ");
                     Console.ResetColor();

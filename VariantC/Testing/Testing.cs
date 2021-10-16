@@ -5,7 +5,7 @@ using CollectionOfUsers;
 
 namespace VariantC
 {
-    class Program
+    class Testing
     {
         static void Main(string[] args)
         {
