@@ -41,6 +41,15 @@ namespace VariantC
             // Вывести информацию о пользователях, которые не получали сообщения с заданной темой.
             Console.WriteLine(UsersCollection.GetUsersWithoutSuchTopic("Study"));
             Console.WriteLine(new string('*', 40));
+
+            try
+            {
+                User notValidUser = new User("123", "   ", new DateTime());
+            }
+            catch
+            {
+                Console.WriteLine("Error!");
+            }
         }
     }
 }
