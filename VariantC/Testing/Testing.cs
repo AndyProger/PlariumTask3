@@ -42,6 +42,7 @@ namespace VariantC
             Console.WriteLine(UsersCollection.GetUsersWithoutSuchTopic("Study"));
             Console.WriteLine(new string('*', 40));
 
+            // использование механизма обработки исключительных ситуаций
             try
             {
                 User notValidUser = new User("123", "   ", new DateTime());
